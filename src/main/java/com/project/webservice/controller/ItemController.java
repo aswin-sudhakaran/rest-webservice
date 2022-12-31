@@ -32,7 +32,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/getitemsbyids", method = RequestMethod.GET)
-    public ResponseEntity<List<Item>> saveUser(@RequestParam("id") List<Integer> requestParams) {
+    public ResponseEntity<List<Item>> getItemsByIds(@RequestParam("id") List<Integer> requestParams) {
         try {
             List<Item> itemList = itemService.findByIds(requestParams);
             return new ResponseEntity<>(itemList, HttpStatus.OK);
