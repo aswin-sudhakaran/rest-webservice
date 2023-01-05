@@ -15,33 +15,40 @@ import java.util.stream.Collectors;
 @Transactional
 public class ItemService {
 
-        @Autowired
-        private ItemRepository itemRepository;
-        public List<Item> listAllItems() {
-            List<Item> output= itemRepository.findAll();
+    @Autowired
+    private ItemRepository itemRepository;
+
+    public List<Item> listAllItems() {
+
+            List<Item> output = itemRepository.findAll();
             return output
                     .stream()
                     .sorted(Comparator.comparing(Item::getPrice).reversed())
                     .collect(Collectors.toList());
-        }
 
-        public void saveItem(Item user) {
-            itemRepository.save(user);
-        }
+    }
 
-        public Item getItem(Integer id) {
-            return itemRepository.findById(id).get();
-        }
+    public void saveItem(Item user) {
+        itemRepository.save(user);
+    }
 
-        public void deleteItem(Integer id) {
-            itemRepository.deleteById(id);
-        }
+    public Item getItem(Integer id) {
+        return itemRepository.findById(id).get();
+    }
 
-         public List<Item> findByIds(List<Integer> idList) {
-            List<Item> itemList = new ArrayList<>();
-            idList.forEach((n)->itemList
-                    .add(itemRepository.findById(n).get()));
-            return itemList;
+    public List<Item> getItemByBrand(String name) {
+        return itemRepository.findByBrand(name);
+    }
+
+    public void deleteItem(Integer id) {
+        itemRepository.deleteById(id);
+    }
+
+    public List<Item> findByIds(List<Integer> idList) {
+        List<Item> itemList = new ArrayList<>();
+        idList.forEach((n) -> itemList
+                .add(itemRepository.findById(n).get()));
+        return itemList;
     }
 
 }
